@@ -7,9 +7,9 @@ import { links } from '../data/dummy';
 import { useStateContext } from '../contexts/ContextProvider';
 
 const Sidebar = () => {
-  const { activeMenu, setActiveMenu, screenSize } = useStateContext();
+  const { currentColor, activeMenu, setActiveMenu, screenSize } = useStateContext();
   const activeLink = 'flex item-center gap-5 pl-4 pt-3 rounded-lg text-white text-md m-2';
-  const normalLink = 'flex items center gap-5 pl-4 pt-3 rounded-lg text-md m-2 text-gray-700 dark:hover:text-black hover:bg-light-gray';
+  const normalLink = 'flex items center gap-5 pl-4 pt-3 rounded-lg text-md m-2 text-gray-700 dark:text-gray-200 dark:hover:text-black hover:bg-light-gray';
   const handleCloseSideBar = () => {
     if(activeMenu && screenSize <= 900) {
       setActiveMenu(false);
@@ -43,6 +43,7 @@ const Sidebar = () => {
             </p>
             {item.links.map((link) => (
               <NavLink to={`/${link.name}`}
+              style={({isActive}) => ({backgroundColor: isActive ?  currentColor:''})}
               key={link.name} onClick={handleCloseSideBar}
               className={({ isActive }) => isActive? activeLink : normalLink}>
                 {link.icon}
